@@ -1,4 +1,4 @@
-import { BadgeCheck, Building2, Globe, Mail, PenTool, Phone, User } from 'lucide-react';
+import { BadgeCheck, Building2, Globe, Mail, Phone, User } from 'lucide-react';
 
 const rows = [
   {
@@ -83,18 +83,11 @@ export default function BusinessInfoCard() {
       <footer className="mt-8 border-t border-slate-200 pt-6">
         <div className="flex items-start gap-3">
           <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand">
-            <PenTool className="h-4 w-4" aria-hidden />
+            <User className="h-4 w-4" aria-hidden />
           </span>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted">Authorized Signature</p>
-            <p
-              className="mt-2 text-3xl leading-none text-ink sm:text-4xl"
-              style={{ fontFamily: '"Great Vibes", cursive' }}
-              aria-hidden="true"
-            >
-              Ashwani Kumar
-            </p>
-            <p className="mt-3 text-sm font-bold text-ink">Ashwani Kumar</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted">Authorized By</p>
+            <p className="mt-2 text-sm font-bold text-ink">Ashwani Kumar</p>
             <p className="text-sm text-muted">Proprietor</p>
           </div>
         </div>
