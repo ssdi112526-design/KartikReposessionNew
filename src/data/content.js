@@ -99,7 +99,7 @@ export const fallbackPartners = [
   { name: 'Anmol Financial Services', type: 'Finance', status: 'Active Partner' },
   { name: 'Indiabulls Financial Services Ltd', type: 'Finance', status: 'Active Partner' },
   { name: 'India Infoline Finance Ltd (IIFL Finance)', type: 'Finance', status: 'Active Partner' },
-  { name: 'Software Solutions Development India', type: 'Finance', status: 'Active Partner' },
+  { name: 'Software Solutions Development India', type: 'Web Development', status: 'Active Partner' },
 ];
 
 export const whatWeHandle = [
