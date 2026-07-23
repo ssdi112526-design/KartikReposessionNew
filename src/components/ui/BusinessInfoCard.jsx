@@ -4,7 +4,7 @@ const rows = [
   {
     icon: Building2,
     label: 'Business Name',
-    value: 'Kartik Reposession Agency',
+    value: 'Kartik Repossession Agency',
   },
   {
     icon: User,
