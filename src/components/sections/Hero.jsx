@@ -17,10 +17,12 @@ export default function Hero() {
             {companyInfo.badge}
           </div>
 
-          <h1 className="text-[clamp(32px,5vw,48px)] font-extrabold leading-[1.2] tracking-[-0.02em] text-ink">
-            Legal &amp; <br />
-            <span className="text-highlight">Vehicle Recovery</span> <br />
-            Services Across India
+          <h1 className="text-[clamp(19px,3.2vw,32px)] font-extrabold leading-[1.25] tracking-[-0.02em] text-ink">
+            Bank / NBFC Authorized Agency
+            <span className="text-highlight">
+              <br />
+              Repossession Collection
+            </span>
           </h1>
 
           <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-3 md:justify-start">

@@ -9,11 +9,11 @@ export const companyInfo = {
 };
 
 export const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Our Partners', href: '#partners' },
-  { label: 'Fast Recovery', href: '#what-we-handle' },
-  { label: 'Networking', href: '#coverage' },
-  { label: 'FAQs', href: '#faq' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Our Partners', href: '/#partners' },
+  { label: 'Fast Recovery', href: '/#what-we-handle' },
+  { label: 'Networking', href: '/#coverage' },
+  { label: 'FAQs', href: '/#faq' },
 ];
 
 export const fallbackServices = [
@@ -34,42 +34,6 @@ export const fallbackServices = [
     description:
       'All Finance Assets Including Cars, Commercial Cars, Two-Wheelers, Three-Wheelers, Trucks, Tempo, Earthmoving Equipment, Generators, Machine Etc. Finance Assets Legal Parking Point Partner.',
     icon: 'FaParking',
-  },
-  {
-    title: 'Custom Software Development',
-    description:
-      'Bespoke software engineered to solve your unique business challenges with scalable, secure architecture.',
-    icon: 'FaCode',
-  },
-  {
-    title: 'Mobile App Development',
-    description:
-      'Native and cross-platform iOS & Android apps with stunning UI/UX that users love.',
-    icon: 'FaMobileAlt',
-  },
-  {
-    title: 'Web Development',
-    description:
-      'Responsive, fast, and SEO-optimized websites and web applications built with modern frameworks.',
-    icon: 'FaGlobe',
-  },
-  {
-    title: 'Cloud Solutions',
-    description:
-      'Scalable cloud infrastructure setup, migration, and management on AWS, Azure, and GCP.',
-    icon: 'FaCloud',
-  },
-  {
-    title: 'Cybersecurity',
-    description:
-      'Comprehensive security audits, penetration testing, and data protection for your digital assets.',
-    icon: 'FaShieldAlt',
-  },
-  {
-    title: 'AI & Automation',
-    description:
-      'Intelligent automation, machine learning models, and AI-driven insights to supercharge your operations.',
-    icon: 'FaRobot',
   },
 ];
 
@@ -135,6 +99,7 @@ export const fallbackPartners = [
   { name: 'Anmol Financial Services', type: 'Finance', status: 'Active Partner' },
   { name: 'Indiabulls Financial Services Ltd', type: 'Finance', status: 'Active Partner' },
   { name: 'India Infoline Finance Ltd (IIFL Finance)', type: 'Finance', status: 'Active Partner' },
+  { name: 'Software Solution Development India', type: 'Finance', status: 'Active Partner' },
 ];
 
 export const whatWeHandle = [

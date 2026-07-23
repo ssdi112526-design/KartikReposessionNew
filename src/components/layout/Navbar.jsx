@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import Logo from '../ui/Logo';
 import Button from '../ui/Button';
@@ -14,18 +15,21 @@ export default function Navbar() {
 
         <nav className="hidden items-center gap-7 lg:flex">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               className="text-sm font-medium text-slate-600 transition hover:text-brand"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
+          <Link to="/terms" className="text-sm font-medium text-slate-600 transition hover:text-brand">
+            Terms &amp; Conditions
+          </Link>
         </nav>
 
         <div className="hidden lg:block">
-          <Button href="#contact">Contact</Button>
+          <Button href="/#contact">Contact</Button>
         </div>
 
         <button
@@ -42,16 +46,23 @@ export default function Navbar() {
         <div className="border-t border-slate-100 bg-white px-4 py-4 lg:hidden">
           <nav className="flex flex-col gap-3">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
+                to={link.href}
                 className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-brand-light hover:text-brand"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <Button href="#contact" className="mt-2 w-full" onClick={() => setOpen(false)}>
+            <Link
+              to="/terms"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-brand-light hover:text-brand"
+              onClick={() => setOpen(false)}
+            >
+              Terms &amp; Conditions
+            </Link>
+            <Button href="/#contact" className="mt-2 w-full" onClick={() => setOpen(false)}>
               Contact
             </Button>
           </nav>

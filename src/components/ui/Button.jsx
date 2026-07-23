@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Button({
   children,
   variant = 'primary',
@@ -21,6 +23,17 @@ export default function Button({
   const classes = `${base} ${variants[variant] || variants.primary} ${className}`;
 
   if (href) {
+    const isInternal = href.startsWith('/') || href.startsWith('#');
+    const to = href.startsWith('#') ? `/${href}` : href;
+
+    if (isInternal) {
+      return (
+        <Link to={to} className={classes} {...props}>
+          {children}
+        </Link>
+      );
+    }
+
     return (
       <a href={href} className={classes} {...props}>
         {children}

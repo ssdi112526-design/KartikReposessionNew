@@ -1,5 +1,6 @@
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 import Logo from '../ui/Logo';
 import { companyInfo, socialLinks } from '../../data/content';
 
@@ -12,10 +13,10 @@ const socialIconMap = {
 };
 
 const quickLinks = [
-  { label: 'Our Services', href: '#services' },
-  { label: 'Channel Partners', href: '#partners' },
-  { label: 'Recovery Process', href: '#what-we-handle' },
-  { label: 'FAQs', href: '#faq' },
+  { label: 'Our Services', href: '/#services' },
+  { label: 'Channel Partners', href: '/#partners' },
+  { label: 'Recovery Process', href: '/#what-we-handle' },
+  { label: 'FAQs', href: '/#faq' },
 ];
 
 const serviceLinks = [
@@ -58,9 +59,9 @@ export default function Footer() {
           <ul className="space-y-2.5 text-sm">
             {quickLinks.map((item) => (
               <li key={item.label}>
-                <a href={item.href} className="hover:text-white">
+                <Link to={item.href} className="hover:text-white">
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -71,9 +72,9 @@ export default function Footer() {
           <ul className="space-y-2.5 text-sm">
             {serviceLinks.map((item) => (
               <li key={item}>
-                <a href="#services" className="hover:text-white">
+                <Link to="/#services" className="hover:text-white">
                   {item}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -108,15 +109,15 @@ export default function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-slate-500 sm:flex-row sm:px-6 lg:px-8">
           <p>© 2026 Kartik Repossession Agency. All rights reserved.</p>
           <div className="flex gap-4">
-            <a href="#contact" className="hover:text-slate-300">
+            <Link to="/#contact" className="hover:text-slate-300">
               Privacy Policy
-            </a>
-            <a href="#contact" className="hover:text-slate-300">
-              Terms of Service
-            </a>
-            <a href="#contact" className="hover:text-slate-300">
+            </Link>
+            <Link to="/terms" className="hover:text-slate-300">
+              Terms &amp; Conditions
+            </Link>
+            <Link to="/#contact" className="hover:text-slate-300">
               Disclaimer
-            </a>
+            </Link>
           </div>
         </div>
       </div>
