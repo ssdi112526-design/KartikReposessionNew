@@ -51,13 +51,13 @@ export const fallbackProducts = [
 export const fallbackTeam = [
   {
     role: 'Operations Manager',
-    experience: '10+ Years Experience',
+    experience: '15+ Years Experience',
     description: 'Managing recovery operations and client coordination professionally.',
     icon: 'FaUserTie',
   },
   {
     role: 'Recovery Supervisor',
-    experience: '8+ Years Experience',
+    experience: '10+ Years Experience',
     description: 'Supervising repossession teams with complete legal compliance.',
     icon: 'FaUserShield',
   },
@@ -70,7 +70,7 @@ export const fallbackTeam = [
   {
     role: 'Customer Support',
     experience: '24×7 Assistance',
-    description: 'Always available for finance companies and recovery support.',
+    description: 'Always available for finance companies and recovery support. Call +91 96540 08500.',
     icon: 'FaHeadset',
   },
 ];
