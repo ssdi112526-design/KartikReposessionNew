@@ -47,7 +47,7 @@ export default function BusinessInfoCard() {
             <h3 id="official-business-heading" className="text-xl font-bold tracking-tight text-ink">
               Official Business Information
             </h3>
-            <p className="mt-0.5 text-sm font-medium text-muted">A Proprietorship Firm</p>
+            <p className="mt-0.5 text-sm font-medium text-muted"> A Sole Proprietorship Firm</p>
           </div>
         </div>
       </header>

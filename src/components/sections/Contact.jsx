@@ -38,7 +38,7 @@ export default function Contact() {
         <SectionHeading
           eyebrow="Contact Us"
           title="Get In Touch"
-          subtitle="Reach out to discuss your NPA portfolio requirements. We respond within one business day."
+          subtitle="Contact us to discuss your NPA portfolio and recovery requirements. We respond within one business day."
         />
 
         <div className="space-y-8">

@@ -4,7 +4,7 @@ export const companyInfo = {
   badge: "India's Premier Asset Recovery Agency",
   address: 'P-155, Plot No. 52, Gali No. 5, Phase-4, Shiv Vihar, Karawal Nagar, North East Delhi – 110094',
   phones: ['+91 96540 08400', '+91 96540 08500'],
-  email: 'Kartikashwanikumar@gmail.com',
+  email: 'kartikashwanikumar@gmail.com',
   hours: 'Monday – Saturday: 8:30 AM – 6:00 PM',
 };
 
@@ -20,11 +20,11 @@ export const fallbackServices = [
   {
     title: 'Repossession',
     description:
-      'All Finance Assets Including Cars, Commercial Vehicles, Two-Wheelers, Three-Wheelers, Trucks, Tempo, Earthmoving Equipment, Generators, Machinery & More. Professional Legal Recovery & Parking Repossession Solutions.',
+      'All Finance Assets Including Cars, Commercial Vehicles, Two-Wheelers, Three-Wheelers, Trucks, Tempos, Earthmoving Equipment, Generators, Industrial Machinery, and more. Professional Legal Recovery & Parking Repossession Solutions.',
     icon: 'FaCarSide',
   },
   {
-    title: 'Collection Debt',
+    title: 'Debt Collection',
     description:
       'KARTIK REPOSSESSION AGENCY is an authorized debt collection and recovery agency operating in New Delhi.',
     icon: 'FaHandHoldingUsd',
@@ -32,17 +32,17 @@ export const fallbackServices = [
   {
     title: 'Parking',
     description:
-      'All Finance Assets Including Cars, Commercial Cars, Two-Wheelers, Three-Wheelers, Trucks, Tempo, Earthmoving Equipment, Generators, Machine Etc. Finance Assets Legal Parking Point Partner.',
+      'All Finance Assets Including Cars, Commercial Vehicles, Two-Wheelers, Three-Wheelers, Trucks, Tempos, Earthmoving Equipment, Generators, Industrial Machinery, etc.  Authorized Legal Parking Yard for Financed Assets.',
     icon: 'FaParking',
   },
-];
+];  
 
 export const fallbackProducts = [
   { title: 'Cars', description: 'Legal repossession and recovery of financed passenger vehicles.', icon: 'FaCar' },
   { title: 'Commercial Vehicles', description: 'Professional recovery of commercial vehicles and transport fleets.', icon: 'FaTruck' },
   { title: 'Two Wheelers', description: 'Fast and secure repossession of bikes and scooters.', icon: 'FaMotorcycle' },
   { title: 'Three Wheelers', description: 'Reliable recovery services for financed auto rickshaws.', icon: 'FaTaxi' },
-  { title: 'Truck & Tempo', description: 'Heavy commercial vehicle recovery with trained professionals.', icon: 'FaTruckMoving' },
+  { title: 'Trucks & Tempos', description: 'Heavy commercial vehicle recovery with trained professionals.', icon: 'FaTruckMoving' },
   { title: 'Earthmoving', description: 'Recovery of JCB, Excavator and heavy earthmoving equipment.', icon: 'FaHardHat' },
   { title: 'Generators', description: 'Secure generator recovery for financial institutions.', icon: 'FaBolt' },
   { title: 'Industrial Machinery', description: 'Professional machinery repossession and transportation.', icon: 'FaIndustry' },
@@ -52,7 +52,7 @@ export const fallbackTeam = [
   {
     role: 'Operations Manager',
     experience: '15+ Years Experience',
-    description: 'Managing recovery operations and client coordination professionally.',
+    description: 'Managing recovery operations and client coordination with professionalism.',
     icon: 'FaUserTie',
   },
   {
@@ -93,7 +93,7 @@ export const fallbackPartners = [
   { name: 'Tata Motor Finance Limited', type: 'Finance', status: 'Active Partner' },
   { name: 'Tata Motor Finance Solutions', type: 'Finance', status: 'Active Partner' },
   { name: 'Hinduja Leyland Finance', type: 'NBFC', status: 'Active Partner' },
-  { name: 'Futter Capital Limited', type: 'Finance', status: 'Active Partner' },
+  { name: 'Future Capital Limited', type: 'Finance', status: 'Active Partner' },
   { name: 'ORIX Leasing & Finance', type: 'NBFC', status: 'Active Partner', badge: 'CV/Auto' },
   { name: 'Home Credit India Finance', type: 'Finance', status: 'Active Partner' },
   { name: 'Anmol Financial Services', type: 'Finance', status: 'Active Partner' },
@@ -109,7 +109,7 @@ export const whatWeHandle = [
     icon: 'FaMotorcycle',
   },
   {
-    title: 'Passenger Vehicle Recovery',
+    title: 'Passenger Vehicle Repossession',
     description: 'Comprehensive retrieval solutions for sedans, hatchbacks, and premium SUVs.',
     icon: 'FaCar',
   },
@@ -139,7 +139,7 @@ export const fallbackEquipment = [
   { title: 'GPS Tracking', description: 'Real-time vehicle tracking for secure recovery operations.', icon: 'FaMapMarkerAlt' },
   { title: 'Recovery Vehicle', description: 'Modern towing and recovery vehicles for every asset type.', icon: 'FaTruckPickup' },
   { title: 'Digital Documentation', description: 'Photo and video evidence with complete recovery reports.', icon: 'FaFileAlt' },
-  { title: 'Professional Toolkit', description: 'Certified recovery tools ensuring damage-free operations.', icon: 'FaTools' },
+  { title: ' Professional Recovery Toolkit', description: 'Certified recovery tools ensuring damage-free operations.', icon: 'FaTools' },
   { title: 'Secure Parking Yard', description: 'Safe parking facilities with 24×7 monitoring.', icon: 'FaWarehouse' },
   { title: '24×7 Communication', description: 'Continuous coordination with banks, NBFCs and clients.', icon: 'FaPhoneAlt' },
 ];
