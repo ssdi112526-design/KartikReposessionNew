@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import Logo from '../components/ui/Logo';
-import Button from '../components/ui/Button';
-import { useAuth } from '../context/AuthContext';
+import Logo from '../../components/ui/Logo';
+import Button from '../../components/ui/Button';
+import { useStaffAuth } from '../../context/StaffAuthContext';
 
-export default function Login() {
-  const { login, user, loading, isAdmin } = useAuth();
+export default function StaffLogin() {
+  const { login, staff, loading } = useStaffAuth();
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const [remember, setRemember] = useState(true);
   const {
     register,
     handleSubmit,
@@ -19,25 +18,20 @@ export default function Login() {
   const onSubmit = async (data) => {
     setError('');
     try {
-      const loggedIn = await login(data);
-      void remember;
-      if (loggedIn.role === 'admin') {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/');
-      }
+      await login({ identifier: data.identifier.trim(), password: data.password });
+      navigate('/staff/dashboard');
     } catch (err) {
       const message =
         err.response?.data?.message ||
         (err.code === 'ERR_NETWORK'
           ? 'Cannot reach server. Make sure the API is running on port 5000.'
-          : 'Login failed');
+          : 'Invalid email/mobile number or password.');
       setError(message);
     }
   };
 
-  if (!loading && user && isAdmin) {
-    return <Navigate to="/admin/dashboard" replace />;
+  if (!loading && staff) {
+    return <Navigate to="/staff/dashboard" replace />;
   }
 
   return (
@@ -46,21 +40,23 @@ export default function Login() {
         <div className="mb-6 flex justify-center">
           <Logo />
         </div>
-        <h1 className="text-center text-2xl font-bold text-ink">Admin Login</h1>
+        <h1 className="text-center text-2xl font-bold text-ink">Staff Login</h1>
         <p className="mt-1 text-center text-sm text-muted">
-          For administrators only. Staff must use Staff Login.
+          Sign in to mark attendance with QR and GPS
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4" noValidate>
           <label className="block text-sm">
-            <span className="mb-1.5 block font-medium">Email / Username</span>
+            <span className="mb-1.5 block font-medium">Email / Mobile Number</span>
             <input
-              type="email"
+              type="text"
               autoComplete="username"
               className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
-              {...register('email', { required: 'Email is required' })}
+              {...register('identifier', { required: 'Email or mobile number is required' })}
             />
-            {errors.email && <span className="mt-1 block text-xs text-red-500">{errors.email.message}</span>}
+            {errors.identifier && (
+              <span className="mt-1 block text-xs text-red-500">{errors.identifier.message}</span>
+            )}
           </label>
 
           <label className="block text-sm">
@@ -76,16 +72,6 @@ export default function Login() {
             )}
           </label>
 
-          <label className="flex items-center gap-2 text-sm text-muted">
-            <input
-              type="checkbox"
-              checked={remember}
-              onChange={(e) => setRemember(e.target.checked)}
-              className="rounded border-slate-300 text-brand focus:ring-brand"
-            />
-            Remember me
-          </label>
-
           {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
 
           <Button type="submit" className="w-full" disabled={isSubmitting}>
@@ -94,12 +80,15 @@ export default function Login() {
         </form>
 
         <p className="mt-4 text-center text-sm text-muted">
+          Forgot Password? Contact Admin.
+        </p>
+        <p className="mt-2 text-center text-sm text-muted">
           <Link to="/" className="text-brand hover:underline">
             Back to website
           </Link>
           {' · '}
-          <Link to="/staff/login" className="text-brand hover:underline">
-            Staff Login
+          <Link to="/admin/login" className="text-brand hover:underline">
+            Admin Login
           </Link>
         </p>
       </div>

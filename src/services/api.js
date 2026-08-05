@@ -6,7 +6,14 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('kra_token');
+  // Explicit Authorization (e.g. staff self-service) wins
+  if (config.headers?.Authorization) {
+    return config;
+  }
+
+  const adminToken = localStorage.getItem('kra_token');
+  const staffToken = localStorage.getItem('kra_staff_token');
+  const token = adminToken || staffToken;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

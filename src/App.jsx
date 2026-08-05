@@ -1,13 +1,32 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { StaffAuthProvider } from './context/StaffAuthContext';
 import { ToastProvider } from './context/ToastContext';
 import ScrollToHash from './components/ScrollToHash';
+import AdminLayout from './components/admin/AdminLayout';
+import StaffLayout from './components/staff/StaffLayout';
 
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
-const Admin = lazy(() => import('./pages/Admin'));
 const Terms = lazy(() => import('./pages/Terms'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminInquiries = lazy(() => import('./pages/admin/AdminInquiries'));
+const StaffList = lazy(() => import('./pages/admin/StaffList'));
+const StaffForm = lazy(() => import('./pages/admin/StaffForm'));
+const TodayAttendance = lazy(() => import('./pages/admin/TodayAttendance'));
+const MarkAttendance = lazy(() => import('./pages/admin/MarkAttendance'));
+const AttendanceHistory = lazy(() => import('./pages/admin/AttendanceHistory'));
+const MonthlyReport = lazy(() => import('./pages/admin/MonthlyReport'));
+const AttendanceReports = lazy(() => import('./pages/admin/AttendanceReports'));
+const QrAttendance = lazy(() => import('./pages/admin/QrAttendance'));
+const AttendanceLocationSettings = lazy(() => import('./pages/admin/AttendanceLocationSettings'));
+const BiometricDevices = lazy(() => import('./pages/admin/BiometricDevices'));
+const BiometricDeviceDetail = lazy(() => import('./pages/admin/BiometricDeviceDetail'));
+const BiometricAttendance = lazy(() => import('./pages/admin/BiometricAttendance'));
+const StaffLogin = lazy(() => import('./pages/staff/StaffLogin'));
+const StaffDashboard = lazy(() => import('./pages/staff/StaffDashboard'));
+const StaffAttendanceHistory = lazy(() => import('./pages/staff/StaffAttendanceHistory'));
 
 function PageLoader() {
   return (
@@ -20,20 +39,49 @@ function PageLoader() {
 export default function App() {
   return (
     <AuthProvider>
-      <ToastProvider>
-        <BrowserRouter>
-          <ScrollToHash />
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </ToastProvider>
+      <StaffAuthProvider>
+        <ToastProvider>
+          <BrowserRouter>
+            <ScrollToHash />
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Navigate to="/admin/login" replace />} />
+                <Route path="/admin/login" element={<Login />} />
+                <Route path="/terms" element={<Terms />} />
+
+                <Route path="/staff/login" element={<StaffLogin />} />
+                <Route path="/staff" element={<StaffLayout />}>
+                  <Route index element={<Navigate to="dashboard" replace />} />
+                  <Route path="dashboard" element={<StaffDashboard />} />
+                  <Route path="attendance" element={<StaffAttendanceHistory />} />
+                </Route>
+
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<Navigate to="dashboard" replace />} />
+                  <Route path="dashboard" element={<AdminDashboard />} />
+                  <Route path="inquiries" element={<AdminInquiries />} />
+                  <Route path="staff" element={<StaffList />} />
+                  <Route path="staff/new" element={<StaffForm />} />
+                  <Route path="staff/:id/edit" element={<StaffForm />} />
+                  <Route path="attendance" element={<TodayAttendance />} />
+                  <Route path="attendance/mark" element={<MarkAttendance />} />
+                  <Route path="attendance/history" element={<AttendanceHistory />} />
+                  <Route path="attendance/monthly" element={<MonthlyReport />} />
+                  <Route path="attendance/reports" element={<AttendanceReports />} />
+                  <Route path="attendance/qr" element={<QrAttendance />} />
+                  <Route path="attendance/biometric" element={<BiometricAttendance />} />
+                  <Route path="attendance/settings" element={<AttendanceLocationSettings />} />
+                  <Route path="biometric-devices" element={<BiometricDevices />} />
+                  <Route path="biometric-devices/:id" element={<BiometricDeviceDetail />} />
+                </Route>
+
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </ToastProvider>
+      </StaffAuthProvider>
     </AuthProvider>
   );
 }

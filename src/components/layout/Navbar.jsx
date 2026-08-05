@@ -28,7 +28,13 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <Button href="/staff/login" variant="outline">
+            Staff Login
+          </Button>
+          <Button href="/admin/login" variant="ghost">
+            Admin
+          </Button>
           <Button href="/#contact">Contact</Button>
         </div>
 
@@ -62,7 +68,13 @@ export default function Navbar() {
             >
               Terms &amp; Conditions
             </Link>
-            <Button href="/#contact" className="mt-2 w-full" onClick={() => setOpen(false)}>
+            <Button href="/staff/login" variant="outline" className="mt-2 w-full" onClick={() => setOpen(false)}>
+              Staff Login
+            </Button>
+            <Button href="/admin/login" variant="ghost" className="w-full" onClick={() => setOpen(false)}>
+              Admin Login
+            </Button>
+            <Button href="/#contact" className="w-full" onClick={() => setOpen(false)}>
               Contact
             </Button>
           </nav>
