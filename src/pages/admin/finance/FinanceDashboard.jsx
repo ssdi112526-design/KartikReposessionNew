@@ -85,9 +85,9 @@ export default function FinanceDashboard() {
   const ieMax = Math.max(...monthly.flatMap((m) => [m.income, m.expenses]), 1);
 
   return (
-    <div>
+    <div className="min-w-0">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
+        <div className="min-w-0">
           <h1 className="text-2xl font-bold text-ink">Finance Dashboard</h1>
           <p className="mt-1 text-sm text-muted">Income, expenses and salary overview.</p>
         </div>
@@ -122,7 +122,7 @@ export default function FinanceDashboard() {
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatCard
           label="Total Income"
           value={formatINR(summary?.totalIncome)}
@@ -162,15 +162,15 @@ export default function FinanceDashboard() {
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-3">
-        <div className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm xl:col-span-2">
+        <div className="min-w-0 overflow-hidden rounded-xl border border-slate-100 bg-white p-5 shadow-sm xl:col-span-2">
           <h2 className="text-sm font-semibold text-ink">Income vs Expense (Monthly)</h2>
           <p className="mt-0.5 text-xs text-muted">Blue = income · Rose = expenses</p>
           {loading ? (
             <p className="mt-8 text-center text-sm text-muted">Loading...</p>
           ) : (
-            <div className="mt-4 flex h-48 items-end gap-1.5 sm:gap-2">
+            <div className="mt-4 flex h-48 min-w-0 items-end gap-1 overflow-x-auto sm:gap-2">
               {monthly.map((m) => (
-                <div key={m.month} className="flex flex-1 flex-col items-center gap-1">
+                <div key={m.month} className="flex min-w-0 flex-1 flex-col items-center gap-1">
                   <div className="flex h-40 w-full max-w-[32px] items-end justify-center gap-0.5">
                     <div
                       className="w-1/2 rounded-t bg-brand"
@@ -190,7 +190,7 @@ export default function FinanceDashboard() {
           )}
         </div>
 
-        <div className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
+        <div className="min-w-0 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
           <h2 className="text-sm font-semibold text-ink">Salary Paid vs Pending</h2>
           <p className="mt-0.5 text-xs text-muted">Current month</p>
           <div className="mt-6 space-y-5">
@@ -212,13 +212,13 @@ export default function FinanceDashboard() {
         </div>
       </div>
 
-      <div className="mt-4 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
+      <div className="mt-4 min-w-0 overflow-hidden rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
         <h2 className="text-sm font-semibold text-ink">Monthly Net</h2>
         <p className="mt-0.5 text-xs text-muted">Emerald = profit · Rose = loss</p>
         {loading ? (
           <p className="mt-8 text-center text-sm text-muted">Loading...</p>
         ) : (
-          <div className="mt-4">
+          <div className="mt-4 min-w-0">
             <VerticalBars
               items={monthly}
               getValue={(m) => m.net}
