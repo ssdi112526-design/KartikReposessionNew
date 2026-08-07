@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { QRCodeSVG } from 'qrcode.react';
 import Button from '../../components/ui/Button';
 import { useToast } from '../../context/ToastContext';
-import { staffService } from '../../services';
-import { STAFF_STATUS_OPTIONS, buildStaffQrPayload } from '../../utils/attendanceHelpers';
+import { staffService, financeService } from '../../services';
+import { STAFF_STATUS_OPTIONS } from '../../utils/attendanceHelpers';
+import {
+  formatINR,
+  formatDateIN,
+  salaryStatusLabel,
+  salaryStatusClass,
+} from '../../utils/financeHelpers';
 
 const EMPTY = {
   name: '',
@@ -21,6 +26,9 @@ const EMPTY = {
   staffCode: '',
   password: '',
   confirmPassword: '',
+  monthlySalary: '',
+  salaryType: 'monthly',
+  salaryEffectiveFrom: '',
 };
 
 export default function StaffForm() {
@@ -31,6 +39,7 @@ export default function StaffForm() {
   const [loading, setLoading] = useState(isEdit);
   const [staff, setStaff] = useState(null);
   const [resetPassword, setResetPassword] = useState('');
+  const [salaryInfo, setSalaryInfo] = useState(null);
 
   const {
     register,
@@ -50,6 +59,25 @@ export default function StaffForm() {
         const res = await staffService.getOne(id);
         const s = res.data.data.staff;
         setStaff(s);
+
+        let monthlySalary = '';
+        let salaryType = 'monthly';
+        let salaryEffectiveFrom = '';
+        try {
+          const salRes = await financeService.staffSalaryHistory(id);
+          setSalaryInfo(salRes.data.data);
+          const cur = salRes.data.data.currentSalary;
+          if (cur) {
+            monthlySalary = String(cur.monthlySalary ?? '');
+            salaryType = cur.salaryType || 'monthly';
+            salaryEffectiveFrom = cur.effectiveFrom
+              ? String(cur.effectiveFrom).slice(0, 10)
+              : '';
+          }
+        } catch {
+          setSalaryInfo(null);
+        }
+
         reset({
           name: s.name || '',
           mobile: s.mobile || '',
@@ -64,6 +92,9 @@ export default function StaffForm() {
           staffCode: s.staffCode || '',
           password: '',
           confirmPassword: '',
+          monthlySalary,
+          salaryType,
+          salaryEffectiveFrom,
         });
       } catch (err) {
         toast.error(err.response?.data?.message || 'Failed to load staff');
@@ -84,6 +115,12 @@ export default function StaffForm() {
       return;
     }
 
+    const salaryNum = Number(data.monthlySalary);
+    if (!Number.isFinite(salaryNum) || salaryNum <= 0) {
+      toast.error('Monthly salary is required');
+      return;
+    }
+
     const payload = {
       name: data.name,
       mobile: data.mobile,
@@ -96,6 +133,10 @@ export default function StaffForm() {
       address: data.address,
       emergencyContact: data.emergencyContact,
       staffCode: data.staffCode || undefined,
+      monthlySalary: salaryNum,
+      salaryType: data.salaryType || 'monthly',
+      salaryEffectiveFrom:
+        data.salaryEffectiveFrom || data.joiningDate || new Date().toISOString().slice(0, 10),
     };
 
     if (data.password) {
@@ -107,6 +148,8 @@ export default function StaffForm() {
         const res = await staffService.update(id, payload);
         setStaff(res.data.data.staff);
         toast.success('Staff updated successfully');
+        const salRes = await financeService.staffSalaryHistory(id).catch(() => null);
+        if (salRes) setSalaryInfo(salRes.data.data);
         reset({ ...data, password: '', confirmPassword: '' });
       } else {
         if (!data.password) {
@@ -114,23 +157,11 @@ export default function StaffForm() {
           return;
         }
         const res = await staffService.create(payload);
-        toast.success(
-          'Staff created. They can login at /staff/login using email or mobile + password.'
-        );
+        toast.success('Staff created with salary. They can login at /staff/login.');
         navigate(`/admin/staff/${res.data.data.staff._id}/edit`);
       }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Save failed');
-    }
-  };
-
-  const handleRegenerateQr = async () => {
-    try {
-      const res = await staffService.regenerateQr(id);
-      setStaff(res.data.data.staff);
-      toast.success('QR code regenerated');
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to regenerate QR');
     }
   };
 
@@ -158,8 +189,8 @@ export default function StaffForm() {
       <h1 className="text-2xl font-bold text-ink">{isEdit ? 'Edit Staff' : 'Add Staff'}</h1>
       <p className="mt-1 text-sm text-muted">
         {isEdit
-          ? 'Update staff profile and login credentials.'
-          : 'Create a staff member with login credentials for attendance.'}
+          ? 'Update staff profile, salary and login credentials.'
+          : 'Create staff with login credentials and monthly salary.'}
       </p>
 
       <form
@@ -272,17 +303,63 @@ export default function StaffForm() {
           </label>
         </div>
 
+        <div className="rounded-lg border border-dashed border-emerald-200 bg-emerald-50/40 p-4">
+          <h3 className="text-sm font-semibold text-ink">Salary *</h3>
+          <p className="mt-1 text-xs text-muted">
+            Salary is set when creating staff. Payments are recorded later from Finance → Salary
+            Payments.
+          </p>
+          <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <label className="block text-sm">
+              <span className="mb-1.5 block font-medium">Monthly Salary (₹) *</span>
+              <input
+                type="number"
+                min="1"
+                step="0.01"
+                className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
+                placeholder="25000"
+                {...register('monthlySalary', {
+                  required: 'Monthly salary is required',
+                  min: { value: 1, message: 'Must be greater than 0' },
+                })}
+              />
+              {errors.monthlySalary && (
+                <span className="mt-1 block text-xs text-red-500">{errors.monthlySalary.message}</span>
+              )}
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1.5 block font-medium">Salary Type</span>
+              <select
+                className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
+                {...register('salaryType')}
+              >
+                <option value="monthly">Monthly</option>
+                <option value="daily">Daily</option>
+                <option value="hourly">Hourly</option>
+              </select>
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1.5 block font-medium">Effective From</span>
+              <input
+                type="date"
+                className="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
+                {...register('salaryEffectiveFrom')}
+              />
+            </label>
+          </div>
+        </div>
+
         <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4">
           <h3 className="text-sm font-semibold text-ink">Login Credentials</h3>
           <p className="mt-1 text-xs text-muted">
-            Staff can log in with email or mobile + password at /staff/login. Passwords are hashed.
-            {isEdit && staff?.hasPassword ? ' Login is already set — leave blank to keep current password.' : ''}
+            Staff can log in with email or mobile + password at /staff/login.
+            {isEdit && staff?.hasPassword
+              ? ' Login is already set — leave blank to keep current password.'
+              : ''}
           </p>
           <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="block text-sm">
-              <span className="mb-1.5 block font-medium">
-                Password {!isEdit && '*'}
-              </span>
+              <span className="mb-1.5 block font-medium">Password {!isEdit && '*'}</span>
               <input
                 type="password"
                 autoComplete="new-password"
@@ -326,6 +403,50 @@ export default function StaffForm() {
         </div>
       </form>
 
+      {isEdit && salaryInfo && (
+        <div className="mt-6 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-semibold text-ink">Salary Summary</h2>
+              <p className="mt-1 text-sm text-muted">Payment history from Finance module.</p>
+            </div>
+            <Button href="/admin/finance/salaries" variant="outline">
+              Manage Salary
+            </Button>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+            <div>
+              <p className="text-muted">Current Salary</p>
+              <p className="font-semibold text-ink">
+                {salaryInfo.currentSalary
+                  ? formatINR(salaryInfo.currentSalary.monthlySalary)
+                  : 'Not set'}
+              </p>
+            </div>
+            <div>
+              <p className="text-muted">Total Paid</p>
+              <p className="font-semibold text-ink">{formatINR(salaryInfo.totals?.totalPaid)}</p>
+            </div>
+            <div>
+              <p className="text-muted">Last Payment</p>
+              <p className="font-semibold text-ink">
+                {salaryInfo.payments?.[0]
+                  ? `${formatINR(salaryInfo.payments[0].paymentAmount)} · ${formatDateIN(salaryInfo.payments[0].paymentDate)}`
+                  : '—'}
+              </p>
+            </div>
+          </div>
+          {!salaryInfo.currentSalary && (
+            <p className="mt-3 text-xs text-amber-700">
+              Status:{' '}
+              <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${salaryStatusClass('pending')}`}>
+                {salaryStatusLabel('pending')}
+              </span>
+            </p>
+          )}
+        </div>
+      )}
+
       {isEdit && (
         <div className="mt-6 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-ink">Reset Password</h2>
@@ -341,27 +462,6 @@ export default function StaffForm() {
             <Button type="button" onClick={handleResetPassword}>
               Reset Password
             </Button>
-          </div>
-        </div>
-      )}
-
-      {isEdit && staff?.qrToken && (
-        <div className="mt-6 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-semibold text-ink">Staff QR Code</h2>
-          <p className="mt-1 text-sm text-muted">
-            Optional: Admin can scan this QR on the Attendance QR page for manual check-in.
-          </p>
-          <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <div className="rounded-xl border border-slate-100 bg-white p-3">
-              <QRCodeSVG value={buildStaffQrPayload(staff.qrToken)} size={160} />
-            </div>
-            <div>
-              <p className="text-sm font-medium text-ink">{staff.staffCode}</p>
-              <p className="text-sm text-muted">{staff.name}</p>
-              <Button type="button" variant="outline" className="mt-3" onClick={handleRegenerateQr}>
-                Regenerate QR
-              </Button>
-            </div>
           </div>
         </div>
       )}

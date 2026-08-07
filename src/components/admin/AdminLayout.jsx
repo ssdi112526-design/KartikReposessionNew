@@ -11,10 +11,15 @@ import {
   FaBars,
   FaTimes,
   FaUserPlus,
-  FaCheckSquare,
   FaMapMarkerAlt,
   FaFileAlt,
   FaFingerprint,
+  FaChartPie,
+  FaMoneyBillWave,
+  FaReceipt,
+  FaExchangeAlt,
+  FaCog,
+  FaUserTie,
 } from 'react-icons/fa';
 import Logo from '../ui/Logo';
 import Button from '../ui/Button';
@@ -39,7 +44,6 @@ const NAV_SECTIONS = [
     title: 'Attendance',
     items: [
       { to: '/admin/attendance', label: "Today's Attendance", icon: FaClipboardCheck, end: true },
-      { to: '/admin/attendance/mark', label: 'Mark Attendance', icon: FaCheckSquare },
       { to: '/admin/attendance/history', label: 'Attendance History', icon: FaHistory },
       { to: '/admin/attendance/monthly', label: 'Monthly Report', icon: FaCalendarAlt },
       { to: '/admin/attendance/reports', label: 'Attendance Reports', icon: FaFileAlt },
@@ -52,6 +56,18 @@ const NAV_SECTIONS = [
     title: 'Biometric',
     items: [
       { to: '/admin/biometric-devices', label: 'Biometric Devices', icon: FaFingerprint, end: true },
+    ],
+  },
+  {
+    title: 'Finance',
+    items: [
+      { to: '/admin/finance', label: 'Finance Dashboard', icon: FaChartPie, end: true },
+      { to: '/admin/finance/income', label: 'Income', icon: FaMoneyBillWave },
+      { to: '/admin/finance/expenses', label: 'Expenses', icon: FaReceipt },
+      { to: '/admin/finance/salaries', label: 'Staff Salary', icon: FaUserTie },
+      { to: '/admin/finance/transactions', label: 'Transactions', icon: FaExchangeAlt },
+      { to: '/admin/finance/reports', label: 'Financial Reports', icon: FaFileAlt },
+      { to: '/admin/finance/settings', label: 'Finance Settings', icon: FaCog },
     ],
   },
 ];
@@ -88,12 +104,12 @@ export default function AdminLayout() {
   if (!isAdmin) return <Navigate to="/" replace />;
 
   const nav = (
-    <div className="flex h-full flex-col">
-      <div className="border-b border-slate-100 px-4 py-4">
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="shrink-0 border-b border-slate-100 px-4 py-4">
         <Logo />
         <p className="mt-2 text-xs text-muted">Admin Panel</p>
       </div>
-      <nav className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
+      <nav className="min-h-0 flex-1 space-y-5 overflow-y-auto px-3 py-4">
         {NAV_SECTIONS.map((section) => (
           <div key={section.title}>
             <p className="mb-1.5 px-3 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
@@ -111,7 +127,7 @@ export default function AdminLayout() {
           </div>
         ))}
       </nav>
-      <div className="border-t border-slate-100 p-4">
+      <div className="shrink-0 border-t border-slate-100 p-4">
         <p className="truncate text-xs text-muted">{user.email}</p>
         <div className="mt-3 flex gap-2">
           <Link to="/" className="text-sm font-medium text-brand hover:underline">
@@ -130,9 +146,13 @@ export default function AdminLayout() {
   );
 
   return (
-    <div className="min-h-screen bg-surface lg:flex">
-      <aside className="hidden w-64 shrink-0 border-r border-slate-100 bg-white lg:block">{nav}</aside>
+    <div className="min-h-screen bg-surface">
+      {/* Desktop: fixed sidebar — does not scroll with page content */}
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-slate-100 bg-white lg:flex">
+        {nav}
+      </aside>
 
+      {/* Mobile drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
@@ -141,12 +161,12 @@ export default function AdminLayout() {
             aria-label="Close menu"
             onClick={() => setMobileOpen(false)}
           />
-          <aside className="relative z-10 h-full w-72 bg-white shadow-xl">{nav}</aside>
+          <aside className="relative z-10 flex h-full w-72 flex-col bg-white shadow-xl">{nav}</aside>
         </div>
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex items-center justify-between border-b border-slate-100 bg-white px-4 py-3 lg:px-6">
+      <div className="flex min-h-screen min-w-0 flex-col lg:pl-64">
+        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-100 bg-white px-4 py-3 lg:px-6">
           <button
             type="button"
             className="rounded-lg p-2 text-ink lg:hidden"

@@ -100,3 +100,31 @@ export const attendanceService = {
   getLocation: () => api.get('/attendance/location'),
   saveLocation: (payload) => api.post('/attendance/location', payload),
 };
+
+export const financeService = {
+  meta: () => api.get('/finance/meta'),
+  settings: () => api.get('/finance/settings'),
+  saveSettings: (payload) => api.put('/finance/settings', payload),
+  dashboard: (params) => api.get('/finance/dashboard', { params }),
+  reports: (params) => api.get('/finance/reports', { params }),
+  transactions: (params) => api.get('/finance/transactions', { params }),
+  export: (params) => api.get('/finance/export', { params, responseType: 'blob' }),
+
+  salaries: (params) => api.get('/finance/salaries', { params }),
+  setSalary: (payload) => api.post('/finance/salaries', payload),
+  staffSalaryHistory: (staffId) => api.get(`/finance/salaries/staff/${staffId}`),
+
+  salaryPayments: (params) => api.get('/finance/salary-payments', { params }),
+  createSalaryPayment: (payload) => api.post('/finance/salary-payments', payload),
+  deleteSalaryPayment: (id) => api.delete(`/finance/salary-payments/${id}`),
+
+  income: (params) => api.get('/finance/income', { params }),
+  createIncome: (payload) => api.post('/finance/income', payload),
+  updateIncome: (id, payload) => api.put(`/finance/income/${id}`, payload),
+  deleteIncome: (id) => api.delete(`/finance/income/${id}`),
+
+  expenses: (params) => api.get('/finance/expenses', { params }),
+  createExpense: (payload) => api.post('/finance/expenses', payload),
+  updateExpense: (id, payload) => api.put(`/finance/expenses/${id}`, payload),
+  deleteExpense: (id) => api.delete(`/finance/expenses/${id}`),
+};

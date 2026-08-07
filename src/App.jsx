@@ -15,7 +15,6 @@ const AdminInquiries = lazy(() => import('./pages/admin/AdminInquiries'));
 const StaffList = lazy(() => import('./pages/admin/StaffList'));
 const StaffForm = lazy(() => import('./pages/admin/StaffForm'));
 const TodayAttendance = lazy(() => import('./pages/admin/TodayAttendance'));
-const MarkAttendance = lazy(() => import('./pages/admin/MarkAttendance'));
 const AttendanceHistory = lazy(() => import('./pages/admin/AttendanceHistory'));
 const MonthlyReport = lazy(() => import('./pages/admin/MonthlyReport'));
 const AttendanceReports = lazy(() => import('./pages/admin/AttendanceReports'));
@@ -24,6 +23,13 @@ const AttendanceLocationSettings = lazy(() => import('./pages/admin/AttendanceLo
 const BiometricDevices = lazy(() => import('./pages/admin/BiometricDevices'));
 const BiometricDeviceDetail = lazy(() => import('./pages/admin/BiometricDeviceDetail'));
 const BiometricAttendance = lazy(() => import('./pages/admin/BiometricAttendance'));
+const FinanceDashboard = lazy(() => import('./pages/admin/finance/FinanceDashboard'));
+const FinanceIncome = lazy(() => import('./pages/admin/finance/FinanceIncome'));
+const FinanceExpenses = lazy(() => import('./pages/admin/finance/FinanceExpenses'));
+const FinanceStaffSalary = lazy(() => import('./pages/admin/finance/FinanceStaffSalary'));
+const FinanceTransactions = lazy(() => import('./pages/admin/finance/FinanceTransactions'));
+const FinanceReports = lazy(() => import('./pages/admin/finance/FinanceReports'));
+const FinanceSettings = lazy(() => import('./pages/admin/finance/FinanceSettings'));
 const StaffLogin = lazy(() => import('./pages/staff/StaffLogin'));
 const StaffDashboard = lazy(() => import('./pages/staff/StaffDashboard'));
 const StaffAttendanceHistory = lazy(() => import('./pages/staff/StaffAttendanceHistory'));
@@ -65,7 +71,6 @@ export default function App() {
                   <Route path="staff/new" element={<StaffForm />} />
                   <Route path="staff/:id/edit" element={<StaffForm />} />
                   <Route path="attendance" element={<TodayAttendance />} />
-                  <Route path="attendance/mark" element={<MarkAttendance />} />
                   <Route path="attendance/history" element={<AttendanceHistory />} />
                   <Route path="attendance/monthly" element={<MonthlyReport />} />
                   <Route path="attendance/reports" element={<AttendanceReports />} />
@@ -74,6 +79,17 @@ export default function App() {
                   <Route path="attendance/settings" element={<AttendanceLocationSettings />} />
                   <Route path="biometric-devices" element={<BiometricDevices />} />
                   <Route path="biometric-devices/:id" element={<BiometricDeviceDetail />} />
+                  <Route path="finance" element={<FinanceDashboard />} />
+                  <Route path="finance/income" element={<FinanceIncome />} />
+                  <Route path="finance/expenses" element={<FinanceExpenses />} />
+                  <Route path="finance/salaries" element={<FinanceStaffSalary />} />
+                  <Route
+                    path="finance/salary-payments"
+                    element={<Navigate to="/admin/finance/salaries" replace />}
+                  />
+                  <Route path="finance/transactions" element={<FinanceTransactions />} />
+                  <Route path="finance/reports" element={<FinanceReports />} />
+                  <Route path="finance/settings" element={<FinanceSettings />} />
                 </Route>
 
                 <Route path="*" element={<Navigate to="/" replace />} />

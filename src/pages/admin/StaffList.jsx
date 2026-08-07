@@ -10,6 +10,7 @@ import { useToast } from '../../context/ToastContext';
 import { staffService } from '../../services';
 import useDebouncedValue from '../../hooks/useDebouncedValue';
 import { formatDate } from '../../utils/attendanceHelpers';
+import { formatINR } from '../../utils/financeHelpers';
 
 export default function StaffList() {
   const toast = useToast();
@@ -124,6 +125,7 @@ export default function StaffList() {
                 <th className="px-4 py-3">Mobile</th>
                 <th className="px-4 py-3">Designation</th>
                 <th className="px-4 py-3">Department</th>
+                <th className="px-4 py-3">Salary</th>
                 <th className="px-4 py-3">Joining</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Actions</th>
@@ -137,6 +139,11 @@ export default function StaffList() {
                   <td className="px-4 py-3">{s.mobile}</td>
                   <td className="px-4 py-3">{s.designation || '—'}</td>
                   <td className="px-4 py-3">{s.department || '—'}</td>
+                  <td className="px-4 py-3 font-medium text-ink">
+                    {s.monthlySalary != null && Number(s.monthlySalary) > 0
+                      ? formatINR(s.monthlySalary)
+                      : '—'}
+                  </td>
                   <td className="px-4 py-3">{formatDate(s.joiningDate)}</td>
                   <td className="px-4 py-3">
                     <span

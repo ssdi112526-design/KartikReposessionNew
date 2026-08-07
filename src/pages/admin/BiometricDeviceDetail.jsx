@@ -20,7 +20,7 @@ export default function BiometricDeviceDetail() {
     try {
       const [devRes, staffRes] = await Promise.all([
         biometricDeviceService.getOne(id),
-        staffService.list({ status: 'active', limit: 200 }),
+        staffService.list({ status: 'active', limit: 100 }),
       ]);
       setDevice(devRes.data.data.device);
       setEnrollments(devRes.data.data.enrollments || []);

@@ -74,10 +74,10 @@ export default function TodayAttendance() {
           <p className="mt-1 text-sm text-muted">{todayLabel()}</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button href="/admin/attendance/mark" variant="outline">
-            Mark Attendance
-          </Button>
           <Button href="/admin/attendance/qr">QR Scan</Button>
+          <Button href="/admin/attendance/biometric" variant="outline">
+            Biometric
+          </Button>
         </div>
       </div>
 
