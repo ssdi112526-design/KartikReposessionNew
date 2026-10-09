@@ -6,6 +6,7 @@ import { ToastProvider } from './context/ToastContext';
 import ScrollToHash from './components/ScrollToHash';
 import AdminLayout from './components/admin/AdminLayout';
 import StaffLayout from './components/staff/StaffLayout';
+// import { Toaster } from 'react-hot-toast';
 
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
