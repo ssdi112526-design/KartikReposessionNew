@@ -22,20 +22,26 @@ export const fallbackServices = [
     description:
       'All Finance Assets Including Cars, Commercial Vehicles, Two-Wheelers, Three-Wheelers, Trucks, Tempos, Earthmoving Equipment, Generators, Industrial Machinery, and more. Professional Legal Recovery & Parking Repossession Solutions.',
     icon: 'FaCarSide',
+    href: '/repossession',
+    slug: 'repossession',
   },
   {
     title: 'Debt Collection',
     description:
-      'KARTIK REPOSSESSION AGENCY is an authorized debt collection and recovery agency operating in New Delhi.',
+      'KARTIK REPOSSESSION AGENCY is a professional debt collection and recovery agency operating in New Delhi.',
     icon: 'FaHandHoldingUsd',
+    href: '/debt-collection',
+    slug: 'debt-collection',
   },
   {
     title: 'Parking',
     description:
       'All Finance Assets Including Cars, Commercial Vehicles, Two-Wheelers, Three-Wheelers, Trucks, Tempos, Earthmoving Equipment, Generators, Industrial Machinery, etc.  Authorized Legal Parking Yard for Financed Assets.',
     icon: 'FaParking',
+    href: '/#contact',
+    slug: 'parking',
   },
-];  
+];
 
 export const fallbackProducts = [
   { title: 'Cars', description: 'Legal repossession and recovery of financed passenger vehicles.', icon: 'FaCar' },
@@ -46,6 +52,18 @@ export const fallbackProducts = [
   { title: 'Earthmoving', description: 'Recovery of JCB, Excavator and heavy earthmoving equipment.', icon: 'FaHardHat' },
   { title: 'Generators', description: 'Secure generator recovery for financial institutions.', icon: 'FaBolt' },
   { title: 'Industrial Machinery', description: 'Professional machinery repossession and transportation.', icon: 'FaIndustry' },
+  {
+    title: 'Warehouse',
+    description:
+      'Professional warehouse repossession, inventory recovery, asset transportation, and secure parking yard management for financed goods and industrial equipment.',
+    icon: 'FaWarehouse',
+  },
+  {
+    title: 'Crane',
+    description:
+      'Professional crane repossession, vehicle tracing, heavy equipment recovery, transportation, and secure handover services for banks, NBFCs, and finance companies.',
+    icon: 'FaTruckMoving',
+  },
 ];
 
 export const fallbackTeam = [
@@ -100,6 +118,8 @@ export const fallbackPartners = [
   { name: 'Indiabulls Financial Services Ltd', type: 'Finance', status: 'Active Partner' },
   { name: 'India Infoline Finance Ltd (IIFL Finance)', type: 'Finance', status: 'Active Partner' },
   { name: 'Software Solutions Development India', type: 'Web Development', status: 'Active Partner' },
+  { name: 'Fastrecovery (SSDI)', type: 'App Partner', status: 'Active Partner' },
+  { name: 'Tata Capital Limited', type: 'Finance', status: 'Active Partner' },
 ];
 
 export const whatWeHandle = [

@@ -13,6 +13,7 @@ const socialIconMap = {
 };
 
 const quickLinks = [
+  { label: 'About Company', href: '/about' },
   { label: 'Our Services', href: '/#services' },
   { label: 'Channel Partners', href: '/#partners' },
   { label: 'Recovery Process', href: '/#what-we-handle' },
@@ -20,12 +21,12 @@ const quickLinks = [
 ];
 
 const serviceLinks = [
-  'Vehicle Repossession',
-  'Legal Documentation',
-  'Yard Storage',
-  'CV Recovery',
-  'Two-Wheeler Recovery',
-  'Recovery Reports',
+  { label: 'Asset Repossession', href: '/repossession' },
+  { label: 'Debt Collection', href: '/debt-collection' },
+  { label: 'Legal Documentation', href: '/#contact' },
+  { label: 'Yard Storage', href: '/#contact' },
+  { label: 'CV Recovery', href: '/repossession' },
+  { label: 'Two-Wheeler Recovery', href: '/repossession' },
 ];
 
 export default function Footer() {
@@ -71,9 +72,9 @@ export default function Footer() {
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Services</h3>
           <ul className="space-y-2.5 text-sm">
             {serviceLinks.map((item) => (
-              <li key={item}>
-                <Link to="/#services" className="hover:text-white">
-                  {item}
+              <li key={item.label}>
+                <Link to={item.href} className="hover:text-white">
+                  {item.label}
                 </Link>
               </li>
             ))}

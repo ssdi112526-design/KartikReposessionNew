@@ -21,7 +21,7 @@ export default function Partners({ partners = [] }) {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {partners.map((partner) => (
             <article
-              key={partner.name}
+              key={partner._id || partner.id || `${partner.type}-${partner.name}`}
               className="flex items-start gap-3 rounded-xl border border-slate-100 bg-surface p-4 transition hover:border-brand/20 hover:bg-white hover:shadow-sm"
             >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand shadow-sm">

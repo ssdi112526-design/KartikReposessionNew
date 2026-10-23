@@ -12,6 +12,11 @@ const rows = [
     value: 'Ashwani Kumar',
   },
   {
+    icon: User,
+    label: 'DRA Number',
+    value: '51938  Indian Institute Of Banking & Finance',
+  },
+  {
     icon: Phone,
     label: 'Contact',
     value: '+91 9654008400',
@@ -20,13 +25,20 @@ const rows = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'kartikashwanikumar@gmail.com',
+    value: 'kartikashwanikumar@gmail.com, kartik_repoagency@rediff.com',
     href: 'mailto:kartikashwanikumar@gmail.com',
   },
   {
     icon: Globe,
     label: 'Website',
     value: 'www.kartikemi.com',
+    href: 'https://www.kartikemi.com',
+    external: true,
+  },
+  {
+    icon: Globe,
+    label: 'Work Area',
+    value: 'All India',
     href: 'https://www.kartikemi.com',
     external: true,
   },

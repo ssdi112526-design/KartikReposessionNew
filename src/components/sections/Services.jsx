@@ -1,6 +1,22 @@
+import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import SectionHeading from '../ui/SectionHeading';
 import { getIcon } from '../../utils/icons';
+
+const SERVICE_LINKS = {
+  Repossession: '/repossession',
+  'Debt Collection': '/debt-collection',
+  Parking: '/#contact',
+};
+
+function resolveServiceHref(service) {
+  if (service.href) return service.href;
+  if (service.slug === 'repossession') return '/repossession';
+  if (service.slug === 'collection-debt' || service.slug === 'debt-collection') {
+    return '/debt-collection';
+  }
+  return SERVICE_LINKS[service.title] || '/#contact';
+}
 
 export default function Services({ services = [] }) {
   return (
@@ -15,6 +31,8 @@ export default function Services({ services = [] }) {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => {
             const Icon = getIcon(service.icon);
+            const href = resolveServiceHref(service);
+
             return (
               <article
                 key={service.title}
@@ -25,12 +43,12 @@ export default function Services({ services = [] }) {
                 </div>
                 <h3 className="text-lg font-bold text-ink">{service.title}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{service.description}</p>
-                <a
-                  href="#contact"
+                <Link
+                  to={href}
                   className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand group-hover:gap-3"
                 >
                   Learn More <FaArrowRight size={12} />
-                </a>
+                </Link>
               </article>
             );
           })}

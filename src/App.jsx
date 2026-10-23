@@ -11,6 +11,9 @@ import StaffLayout from './components/staff/StaffLayout';
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Terms = lazy(() => import('./pages/Terms'));
+const About = lazy(() => import('./pages/About'));
+const Repossession = lazy(() => import('./pages/Repossession'));
+const DebtCollection = lazy(() => import('./pages/DebtCollection'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const AdminInquiries = lazy(() => import('./pages/admin/AdminInquiries'));
 const StaffList = lazy(() => import('./pages/admin/StaffList'));
@@ -53,9 +56,12 @@ export default function App() {
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/repossession" element={<Repossession />} />
+                <Route path="/debt-collection" element={<DebtCollection />} />
                 <Route path="/login" element={<Navigate to="/admin/login" replace />} />
                 <Route path="/admin/login" element={<Login />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/about" element={<About />} />
 
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/staff" element={<StaffLayout />}>
