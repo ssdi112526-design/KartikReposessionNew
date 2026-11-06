@@ -28,3 +28,67 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.diwali-hero-title {
+  background: linear-gradient(100deg, #b45309 0%, #dc2626 30%, #ca8a04 55%, #c2410c 80%, #b45309 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: diwali-title-shine 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) drop-shadow(0 2px 8px rgba(15, 23, 42, 0.28));
+  -webkit-text-stroke: 0.4px rgba(120, 53, 15, 0.25);
+}
+
+.diwali-hero-subtitle {
+  animation: diwali-subtitle-fade 3s ease-in-out infinite;
+}
+
+.diwali-diya {
+  display: inline-block;
+  flex-shrink: 0;
+  animation: diwali-diya-glow 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.85));
+}
+
+.diwali-diya-delay {
+  animation-delay: 0.4s;
+}
+
+@keyframes diwali-title-shine {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+@keyframes diwali-subtitle-fade {
+  0%,
+  100% {
+    opacity: 0.88;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes diwali-diya-glow {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diwali-hero-title,
+  .diwali-hero-subtitle,
+  .diwali-diya {
+    animation: none !important;
+  }
+}
